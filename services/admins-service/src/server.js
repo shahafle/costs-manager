@@ -4,8 +4,7 @@ const connectDB = require('./config/database');
 const logger = require('./utils/logger');
 
 const PORT = process.env.PORT || 3004;
-console.log('process.env.PORT', process.env.PORT)
-console.log('PORT', PORT)
+
 // Connect to database
 connectDB();
 
