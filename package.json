@@ -1,0 +1,21 @@
+{
+  "name": "microservices-project",
+  "version": "1.0.0",
+  "description": "Microservices architecture with Express, Mongoose, and Pino",
+  "private": true,
+  "scripts": {
+    "install:all": "cd services/users-service && npm install && cd ../costs-service && npm install && cd ../logs-service && npm install && cd ../admins-service && npm install",
+    "dev:users": "cd services/users-service && npm run dev",
+    "dev:costs": "cd services/costs-service && npm run dev",
+    "dev:logs": "cd services/logs-service && npm run dev",
+    "dev:admins": "cd services/admins-service && npm run dev"
+  },
+  "keywords": [
+    "microservices",
+    "express",
+    "mongoose",
+    "pino"
+  ],
+  "author": "",
+  "license": "ISC"
+}
