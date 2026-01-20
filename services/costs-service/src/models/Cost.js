@@ -28,7 +28,7 @@ const costSchema = new mongoose.Schema({
 
 // Transform to include id instead of _id
 costSchema.set('toJSON', {
-  transform: function(doc, ret) {
+  transform: function (doc, ret) {
     delete ret.__v;
     return ret;
   },

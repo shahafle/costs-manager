@@ -5,7 +5,7 @@ const axios = require('axios');
 const crypto = require('crypto');
 
 const usersServiceUrl = process.env.USERS_SERVICE_URL || 'http://localhost:3001';
-const baseCategories = ['food', 'education', 'health', 'housing'];
+const baseCategories = ['food', 'education', 'health', 'housing', 'sports'];
 
 // Get all costs
 const getAllCosts = async (req, res, next) => {
@@ -32,13 +32,13 @@ const getAllCosts = async (req, res, next) => {
     // Get user information from users-service
     if (costs.length > 0) {
       const userIds = [...new Set(costs.map(cost => cost.userid))];
-      
+
       try {
-        const userPromises = userIds.map(userId => 
+        const userPromises = userIds.map(userId =>
           axios.get(`${usersServiceUrl}/api/users/${userId}`).catch(() => null)
         );
         const userResponses = await Promise.all(userPromises);
-        
+
         const userMap = {};
         userResponses.forEach((response, index) => {
           if (response && response.data) {
@@ -104,7 +104,7 @@ const createCost = async (req, res, next) => {
 
     // Prepare cost data
     const costData = { ...req.body, userid: userId };
-    
+
     // Handle optional createdAt field
     if (req.body.createdAt) {
       const createdAtDate = new Date(req.body.createdAt);
@@ -114,7 +114,7 @@ const createCost = async (req, res, next) => {
           message: 'Invalid createdAt. Must be a valid date',
         });
       }
-      
+
       // Block dates in the past
       const now = new Date();
       if (createdAtDate < now) {
@@ -123,12 +123,12 @@ const createCost = async (req, res, next) => {
           message: 'Cannot create cost with a date in the past',
         });
       }
-      
+
       costData.createdAt = createdAtDate;
     }
 
     const cost = await Cost.create(costData);
-    
+
     logger.info(`Created new cost: ${cost.id}`);
     res.status(201).json(cost);
   } catch (error) {
@@ -141,7 +141,7 @@ const createCost = async (req, res, next) => {
 const getTotalCostsByUserId = async (req, res, next) => {
   try {
     const userId = parseInt(req.params.userId, 10);
-    
+
     if (isNaN(userId)) {
       return res.status(400).json({
         id: crypto.randomUUID(),
