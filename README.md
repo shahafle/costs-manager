@@ -1,3 +1,5 @@
+⚠️ **Important**: The microservices are deployed on Render Free Tier. Due to the "spin-down" policy for inactive instances, **you may experience a delay of 60-90 seconds** while the containers mount and start running. **If you receive a timeout or a long loading screen, please refresh after a minute.**
+
 # Microservices Architecture
 
 This project has been refactored into 4 independent microservices, each running on a separate port and deployable independently.
